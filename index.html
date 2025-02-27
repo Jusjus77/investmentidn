@@ -33,6 +33,7 @@
             border: 2px solid #000;
             border-radius: 5px;
             background-color: #f9f9f9;
+            display: none;
         }
         .bukti-item {
             margin: 10px 0;
@@ -70,6 +71,13 @@
             <img id="preview" src="" alt="Pratinjau Bukti Transfer">
         </div>
 
+        <div class="investment-info" id="login-section">
+            <h2>Login Developer</h2>
+            <input type="password" id="password" placeholder="Masukkan password">
+            <button onclick="checkLogin()">Login</button>
+            <p id="login-status"></p>
+        </div>
+
         <div id="admin-section">
             <h2>Konfirmasi Bukti Transfer</h2>
             <div id="bukti-list"></div>
@@ -78,6 +86,7 @@
     
     <script>
         let buktiTransfers = [];
+        const developerPassword = "devpass123"; // Ganti dengan password aman
 
         function calculateOwnership() {
             let totalCost = 100000000; // Biaya pendirian
@@ -144,6 +153,20 @@
             statusElement.innerText = "Dikonfirmasi";
             let bukti = buktiTransfers.find(b => b.id === id);
             if (bukti) bukti.status = "Dikonfirmasi";
+        }
+
+        function checkLogin() {
+            let passwordInput = document.getElementById("password").value;
+            let loginSection = document.getElementById("login-section");
+            let adminSection = document.getElementById("admin-section");
+            let loginStatus = document.getElementById("login-status");
+            
+            if (passwordInput === developerPassword) {
+                loginSection.style.display = "none";
+                adminSection.style.display = "block";
+            } else {
+                loginStatus.innerText = "Password salah!";
+            }
         }
     </script>
 </body>
