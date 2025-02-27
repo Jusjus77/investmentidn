@@ -1,12 +1,128 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investasi Perusahaan Fisik</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .investment-info {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Investasi Perusahaan Fisik</h1>
+        <p>Pilih halaman yang ingin Anda akses:</p>
+        
+        <a href="investor.html"><button>Investor</button></a>
+        <a href="developer.html"><button>Developer</button></a>
+    </div>
+</body>
+</html>
+
+<!-- investor.html -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Investor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .investment-form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 <body>
-    <h1>Halaman Investor</h1>
-    <p>Di sini investor dapat melakukan investasi dan mengunggah bukti transfer.</p>
+    <div class="container">
+        <h1>Halaman Investor</h1>
+        <p>Silakan masukkan jumlah investasi dan unggah bukti transfer.</p>
+        <div class="investment-form">
+            <form action="upload.php" method="POST" enctype="multipart/form-data">
+                <label for="amount">Jumlah Investasi (IDR):</label>
+                <input type="number" id="amount" name="amount" required><br><br>
+                
+                <label for="proof">Unggah Bukti Transfer:</label>
+                <input type="file" id="proof" name="proof" accept="image/*" required><br><br>
+                
+                <button type="submit">Kirim Investasi</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- developer.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Developer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .investment-status {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Halaman Developer</h1>
+        <p>Konfirmasi bukti transfer dan lihat total investasi.</p>
+        <div class="investment-status">
+            <h2>Total Investasi: IDR <span id="totalInvestment">0</span></h2>
+            <button onclick="confirmInvestment()">Konfirmasi Bukti Transfer</button>
+        </div>
+    </div>
+    
+    <script>
+        let totalInvestment = 0;
+        function confirmInvestment() {
+            let investmentAmount = parseInt(prompt("Masukkan jumlah investasi yang dikonfirmasi:", "0"));
+            if (!isNaN(investmentAmount) && investmentAmount > 0) {
+                totalInvestment += investmentAmount;
+                document.getElementById("totalInvestment").innerText = totalInvestment.toLocaleString("id-ID");
+            } else {
+                alert("Jumlah tidak valid.");
+            }
+        }
+    </script>
 </body>
 </html>
