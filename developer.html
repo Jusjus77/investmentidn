@@ -1,12 +1,148 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Investasi Perusahaan Fisik</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Investasi Perusahaan Fisik</h1>
+        <p>Pilih halaman yang ingin Anda akses:</p>
+        
+        <a href="investor.html"><button>Investor</button></a>
+        <a href="developer.html"><button>Developer</button></a>
+    </div>
+</body>
+</html>
+
+<!-- investor.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Investor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .investment-form {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Halaman Investor</h1>
+        <p>Silakan masukkan jumlah investasi dan unggah bukti transfer.</p>
+        <div class="investment-form">
+            <form action="upload.php" method="POST" enctype="multipart/form-data">
+                <label for="amount">Jumlah Investasi (IDR):</label>
+                <input type="number" id="amount" name="amount" required><br><br>
+                
+                <label for="proof">Unggah Bukti Transfer:</label>
+                <input type="file" id="proof" name="proof" accept="image/*" required><br><br>
+                
+                <button type="submit">Kirim Investasi</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- developer.html -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Developer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .investment-status {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .proof-list img {
+            max-width: 100px;
+            display: block;
+            margin: 5px auto;
+        }
+    </style>
 </head>
 <body>
-    <h1>Halaman Developer</h1>
-    <p>Di sini developer dapat mengonfirmasi bukti transfer dan melihat total investasi.</p>
+    <div class="container">
+        <h1>Halaman Developer</h1>
+        <p>Konfirmasi bukti transfer dan lihat total investasi.</p>
+        <div class="investment-status">
+            <h2>Total Investasi: IDR <span id="totalInvestment">0</span></h2>
+        </div>
+        <div class="proof-list">
+            <h3>Bukti Transfer yang Belum Dikonfirmasi</h3>
+            <div id="proofContainer"></div>
+        </div>
+    </div>
+    
+    <script>
+        let totalInvestment = 0;
+        let proofs = [
+            { amount: 7000000, image: "uploads/proof1.jpg" },
+            { amount: 5000000, image: "uploads/proof2.jpg" }
+        ];
+
+        function loadProofs() {
+            let container = document.getElementById("proofContainer");
+            container.innerHTML = "";
+            proofs.forEach((proof, index) => {
+                let div = document.createElement("div");
+                div.innerHTML = `
+                    <p>Investasi: IDR ${proof.amount.toLocaleString("id-ID")}</p>
+                    <img src="${proof.image}" alt="Bukti Transfer">
+                    <button onclick="confirmInvestment(${index})">Konfirmasi</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function confirmInvestment(index) {
+            totalInvestment += proofs[index].amount;
+            document.getElementById("totalInvestment").innerText = totalInvestment.toLocaleString("id-ID");
+            proofs.splice(index, 1);
+            loadProofs();
+        }
+
+        loadProofs();
+    </script>
 </body>
 </html>
